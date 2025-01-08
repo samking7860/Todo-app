@@ -24,7 +24,7 @@ pipeline:
                   name: BuildAndPushDockerRegistry_1
                   identifier: BuildAndPushDockerRegistry_1
                   spec:
-                    connectorRef: docker_connector
+                    connectorRef: docker_hub_connector
                     repo: samadkhan095/sam-repo
                     tags:
                       - latest
