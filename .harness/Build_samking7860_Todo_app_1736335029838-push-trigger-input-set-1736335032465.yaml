@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_samking7860_Todo_app_1736335029838-push-trigger-input-set
+  identifier: Build_samking7860_Todo_app_1736335029838pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_samking7860_Todo_app_1736335029838
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
