@@ -27,7 +27,7 @@ pipeline:
                     connectorRef: docker_hub_connector
                     repo: samadkhan095/sam-repo
                     tags:
-                      - latest
+                      - react-app
                     caching: true
           platform:
             os: Linux
