@@ -30,7 +30,7 @@ pipeline:
                   name: BuildAndPushGCR_1
                   identifier: BuildAndPushGCR_1
                   spec:
-                    connectorRef: registryconnector
+                    connectorRef: harnessvm
                     host: us-central1-docker.pkg.dev/samad-450009/sam-gcr
                     projectID: samad-450009
                     imageName: app
