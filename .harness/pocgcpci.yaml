@@ -1,0 +1,39 @@
+pipeline:
+  name: poc-gcp-ci
+  identifier: pocgcpci
+  projectIdentifier: Harnessci
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: gitconnector
+        build: <+input>
+  stages:
+    - stage:
+        name: Build and Push the Image
+        identifier: Build_and_Push_the_Image
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Docker
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: BuildAndPushGCR
+                  name: BuildAndPushGCR_1
+                  identifier: BuildAndPushGCR_1
+                  spec:
+                    connectorRef: gcrconnector
+                    host: us-central1-docker.pkg.dev/samad-450009/sam-gcr
+                    projectID: samad-450009
+                    imageName: app
+                    tags:
+                      - v1
+                    caching: true
