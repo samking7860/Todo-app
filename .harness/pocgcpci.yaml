@@ -29,11 +29,12 @@ pipeline:
                     projectID: samad-450009
                     imageName: app
                     tags:
-                      - <+trigger.commitSha || build.number>
+                      - <+pipeline.sequenceId>
+                      - <+trigger.commitSha>
                     caching: true
                   outputs:
                     - name: IMAGE_TAG
-                      value: <+trigger.commitSha || build.number>
+                      value: <+trigger.commitSha.default("" + pipeline.sequenceId)>
           infrastructure:
             type: KubernetesDirect
             spec:
