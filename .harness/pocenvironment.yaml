@@ -1,0 +1,6 @@
+environment:
+  name: poc-environment
+  identifier: pocenvironment
+  orgIdentifier: default
+  projectIdentifier: Harnessci
+  type: PreProduction
