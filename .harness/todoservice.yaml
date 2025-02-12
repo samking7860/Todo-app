@@ -18,6 +18,8 @@ service:
                     - deployment.yml
                     - service.yml
                   branch: main
+              valuesPaths:
+                - values.yml
               skipResourceVersioning: false
               enableDeclarativeRollback: false
   gitOpsEnabled: false
