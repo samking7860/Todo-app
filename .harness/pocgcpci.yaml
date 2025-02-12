@@ -13,7 +13,7 @@ pipeline:
     - stage:
         name: Build and Push docker image to artifact
         identifier: Build_and_Push_docker_image_to_artifact
-        description: "Build the image and push it to GCR"
+        description: ""
         type: CI
         spec:
           cloneCodebase: true
@@ -29,11 +29,11 @@ pipeline:
                     projectID: samad-450009
                     imageName: app
                     tags:
-                      - ${trigger.commitSha}
+                      - <+trigger.commitSha || build.number>
                     caching: true
                   outputs:
                     - name: IMAGE_TAG
-                      value: ${trigger.commitSha}
+                      value: <+trigger.commitSha || build.number>
           infrastructure:
             type: KubernetesDirect
             spec:
