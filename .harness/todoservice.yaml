@@ -1,0 +1,25 @@
+service:
+  name: Todo-service
+  identifier: Todoservice
+  serviceDefinition:
+    type: Kubernetes
+    spec:
+      manifests:
+        - manifest:
+            identifier: k8manifests
+            type: K8sManifest
+            spec:
+              store:
+                type: Github
+                spec:
+                  connectorRef: gitconnector
+                  gitFetchType: Branch
+                  paths:
+                    - deployment.yml
+                    - service.yml
+                  branch: main
+              skipResourceVersioning: false
+              enableDeclarativeRollback: false
+  gitOpsEnabled: false
+  orgIdentifier: default
+  projectIdentifier: Harnessci
