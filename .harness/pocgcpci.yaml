@@ -1,6 +1,6 @@
 pipeline:
-  name: poc-gcp-ci
-  identifier: pocgcpci
+  name: gcp-ci
+  identifier: gcpci
   projectIdentifier: Harnessci
   orgIdentifier: default
   tags: {}
@@ -11,18 +11,12 @@ pipeline:
         build: <+input>
   stages:
     - stage:
-        name: Build and Push the Image
-        identifier: Build_and_Push_the_Image
+        name: Build and Push docker image to artifact
+        identifier: Build_and_Push_docker_image_to_artifact
         description: ""
         type: CI
         spec:
           cloneCodebase: true
-          platform:
-            os: Linux
-            arch: Amd64
-          runtime:
-            type: Docker
-            spec: {}
           execution:
             steps:
               - step:
@@ -30,10 +24,21 @@ pipeline:
                   name: BuildAndPushGCR_1
                   identifier: BuildAndPushGCR_1
                   spec:
-                    connectorRef: harnessvm
+                    connectorRef: gcrconnector
                     host: us-central1-docker.pkg.dev/samad-450009/sam-gcr
                     projectID: samad-450009
                     imageName: app
                     tags:
-                      - v1
+                      - ${trigger.commitSha}
                     caching: true
+                  outputs:
+                    - name: IMAGE_TAG
+                      value: ${trigger.commitSha}
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: minikube
+              namespace: dev
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
