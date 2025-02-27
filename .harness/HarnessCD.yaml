@@ -1,0 +1,64 @@
+pipeline:
+  name: Harness-CD
+  identifier: HarnessCD
+  projectIdentifier: Harnessci
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: Deploy the app
+        identifier: Deploy_the_app
+        description: ""
+        type: Deployment
+        spec:
+          deploymentType: Kubernetes
+          service:
+            serviceRef: Todoservice
+          environment:
+            environmentRef: pocenvironment
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: Targetk8s
+          execution:
+            steps:
+              - step:
+                  type: HarnessApproval
+                  name: HarnessApproval_1
+                  identifier: HarnessApproval_1
+                  spec:
+                    approvalMessage: Please review the following information and approve the pipeline progression
+                    includePipelineExecutionHistory: true
+                    isAutoRejectEnabled: false
+                    approvers:
+                      userGroups:
+                        - _project_all_users
+                      minimumCount: 1
+                      disallowPipelineExecutor: false
+                    approverInputs: []
+                    callbackId: ""
+                  timeout: 1d
+              - step:
+                  type: K8sRollingDeploy
+                  name: K8sRollingDeploy_1
+                  identifier: K8sRollingDeploy_1
+                  spec:
+                    skipDryRun: false
+                    pruningEnabled: true
+                    delegateSelectors:
+                      - helm-delegate
+                  timeout: 10m
+            rollbackSteps:
+              - step:
+                  name: Swap primary with stage service
+                  identifier: rollbackBgSwapServices
+                  type: K8sBGSwapServices
+                  timeout: 10m
+                  spec:
+                    skipDryRun: false
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
