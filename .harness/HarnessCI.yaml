@@ -41,3 +41,13 @@ pipeline:
                       - <+pipeline.sequenceId>
                       - <+trigger.commitSha>
                     caching: true
+    - stage:
+        name: Deploy to dev
+        identifier: Deploy_to_dev
+        description: ""
+        type: Pipeline
+        spec:
+          org: default
+          pipeline: HarnessCD
+          project: Harnessci
+          inputs: {}
