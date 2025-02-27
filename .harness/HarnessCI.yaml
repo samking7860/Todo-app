@@ -41,6 +41,9 @@ pipeline:
                       - <+pipeline.sequenceId>
                       - <+trigger.commitSha>
                     caching: true
+          outputs:
+            - name: imageTag
+              value: ${pipeline.sequenceId}
     - stage:
         name: Deploy to dev
         identifier: Deploy_to_dev
@@ -50,4 +53,9 @@ pipeline:
           org: default
           pipeline: HarnessCD
           project: Harnessci
-          inputs: {}
+          inputs:
+            identifier: HarnessCD
+            variables:
+              - name: image_tag
+                type: String
+                value: <+input>
