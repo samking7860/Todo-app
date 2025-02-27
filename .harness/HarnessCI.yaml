@@ -61,3 +61,6 @@ pipeline:
               - name: imageTag
                 type: String
                 value: <+input>.regex(<+pipeline.stages.Build_and_deploy_the_docker_image.outputs.imageTag>)
+              - name: imageName
+                type: String
+                value: <+input>.regex(<+pipeline.stages.Build_and_deploy_the_docker_image.outputs.imageName>)
