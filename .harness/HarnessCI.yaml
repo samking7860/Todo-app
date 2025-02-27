@@ -1,0 +1,43 @@
+pipeline:
+  name: Harness-CI
+  identifier: HarnessCI
+  projectIdentifier: Harnessci
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: gitconnector
+        build: <+input>
+  stages:
+    - stage:
+        name: Build and deploy the docker image
+        identifier: Build_and_deploy_the_docker_image
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: minikube
+              namespace: dev
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
+          execution:
+            steps:
+              - step:
+                  type: BuildAndPushGCR
+                  name: BuildAndPushGCR_1
+                  identifier: BuildAndPushGCR_1
+                  spec:
+                    connectorRef: registryconnector
+                    host: us-central1-docker.pkg.dev/samad-450009/sam-gcr
+                    projectID: samad-450009
+                    imageName: app
+                    tags:
+                      - latest
+                      - <+pipeline.sequenceId>
+                      - <+trigger.commitSha>
+                    caching: true
