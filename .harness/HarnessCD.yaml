@@ -63,7 +63,7 @@ pipeline:
               action:
                 type: StageRollback
   variables:
-    - name: image_tag
+    - name: imageTag
       type: String
       description: ""
       required: true
