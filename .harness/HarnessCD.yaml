@@ -68,3 +68,8 @@ pipeline:
       description: ""
       required: true
       value: <+input>
+    - name: imageName
+      type: String
+      description: ""
+      required: true
+      value: <+input>
