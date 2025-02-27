@@ -56,6 +56,6 @@ pipeline:
           inputs:
             identifier: HarnessCD
             variables:
-              - name: image_tag
+              - name: imageTag
                 type: String
-                value: <+input>
+                value: <+input>.regex(<+pipeline.stages.Build_and_deploy_the_docker_image.outputs.imageTag>)
