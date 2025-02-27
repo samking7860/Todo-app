@@ -66,10 +66,10 @@ pipeline:
     - name: imageTag
       type: String
       description: ""
-      required: false
+      required: true
       value: <+input>
     - name: imageName
       type: String
       description: ""
-      required: false
+      required: true
       value: <+input>
