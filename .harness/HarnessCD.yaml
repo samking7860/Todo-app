@@ -62,3 +62,9 @@ pipeline:
                 - AllErrors
               action:
                 type: StageRollback
+  variables:
+    - name: image_tag
+      type: String
+      description: ""
+      required: true
+      value: <+input>
