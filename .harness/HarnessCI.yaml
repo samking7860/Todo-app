@@ -42,6 +42,8 @@ pipeline:
                       - <+trigger.commitSha>
                     caching: true
           outputs:
+            - name: imageName
+              value: us-central1-docker.pkg.dev/samad-450009/sam-gcr/samad-450009/app
             - name: imageTag
               value: ${pipeline.sequenceId}
     - stage:
