@@ -15,11 +15,11 @@ service:
                   connectorRef: gitconnector
                   gitFetchType: Branch
                   paths:
-                    - deployment.yml
-                    - service.yml
+                    - ./deployment.yml
+                    - ./service.yml
                   branch: main
               valuesPaths:
-                - values.yml
+                - ./values.yml
               skipResourceVersioning: false
               enableDeclarativeRollback: false
   gitOpsEnabled: false
